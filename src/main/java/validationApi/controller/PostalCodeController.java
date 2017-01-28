@@ -14,7 +14,7 @@ import validationApi.validation.Validate;
 @RestController
 public class PostalCodeController {
 
-	PostalCodeService postalCodeService;
+	private PostalCodeService postalCodeService;
 
 	@Autowired
 	public void setPostalCodeService(PostalCodeService postalCodeService) {

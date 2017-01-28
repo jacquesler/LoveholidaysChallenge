@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Thoroughfare {
 	private String line_1;
 	private String line_2;
-	
+
 	public String getLine_1() {
 		return line_1;
 	}
@@ -53,5 +53,5 @@ public class Thoroughfare {
 			return false;
 		return true;
 	}
-	
+
 }

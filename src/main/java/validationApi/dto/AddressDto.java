@@ -5,8 +5,8 @@ public class AddressDto {
 	private String address;
 	private String error_code;
 	private String error_msg;
-	
-	public AddressDto(String address){
+
+	public AddressDto(String address) {
 		this.address = address;
 	}
 

@@ -15,46 +15,46 @@ public class AddressDtoMapperTest {
 
 	private AddressInfo addressInfo;
 	private String address = "Oxford Street";
-	
+
 	@Before
-    public void setUp() throws Exception {
+	public void setUp() throws Exception {
 		addressInfo = new AddressInfo();
 		Thoroughfare thoroughfare = new Thoroughfare();
 		thoroughfare.setLine_1(address);
 		thoroughfare.setLine_2("");
 		List<Thoroughfare> thoroughfares = new ArrayList<>();
-		thoroughfares.add(thoroughfare);		
+		thoroughfares.add(thoroughfare);
 		addressInfo.setThoroughfares(thoroughfares);
-    }
-	
+	}
+
 	@Test
-	public void testAddressToAdressDtoMapping(){
+	public void testAddressToAdressDtoMapping() {
 		AddressDtoMapper dtoMapper = new AddressDtoMapper();
-		AddressDto dto = dtoMapper.map(addressInfo);		
+		AddressDto dto = dtoMapper.map(addressInfo);
 		AddressDto expectedDto = new AddressDto(address);
 		Assert.assertEquals(expectedDto, dto);
 	}
-	
+
 	@Test(expected = RuntimeException.class)
-	public void testMappingThrowsExceptionWhenInputIsNull(){
+	public void testMappingThrowsExceptionWhenInputIsNull() {
 		AddressDtoMapper dtoMapper = new AddressDtoMapper();
-		dtoMapper.map(null);		
+		dtoMapper.map(null);
 	}
-	
+
 	@Test
-	public void testMappingWhenAddressContainsError(){
-		
+	public void testMappingWhenAddressContainsError() {
+
 		AddressInfo errorAddressInfo = new AddressInfo();
 		errorAddressInfo.setError_code("0001");
 		errorAddressInfo.setError_msg("No data was found for the requested postcode.");
-		
+
 		AddressDtoMapper dtoMapper = new AddressDtoMapper();
-		AddressDto dto = dtoMapper.map(errorAddressInfo);		
-		
+		AddressDto dto = dtoMapper.map(errorAddressInfo);
+
 		AddressDto expected = new AddressDto("");
 		expected.setError_code("0001");
 		expected.setError_msg("No data was found for the requested postcode.");
-		
+
 		Assert.assertEquals(expected, dto);
 	}
 }

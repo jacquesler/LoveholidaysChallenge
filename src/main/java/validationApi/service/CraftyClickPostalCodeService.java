@@ -10,28 +10,24 @@ import validationApi.dto.mapper.DtoMapper;
 import validationApi.externalApi.requestBuilder.PostalCodeRestRequestBuilder;
 import validationApi.jsonUtil.JsonToObjectDeserializer;
 
+public class CraftyClickPostalCodeService implements PostalCodeService {
 
-public class CraftyClickPostalCodeService implements PostalCodeService{
-
-		
 	private PostalCodeRestRequestBuilder postalCodeRestResponseBuilder;
-	
-	@Autowired
-	public void setPostalCodeRestResponseBuilder(PostalCodeRestRequestBuilder postalCodeRestResponseBuilder){
-		this.postalCodeRestResponseBuilder = postalCodeRestResponseBuilder;
-	}
-	
 	private JsonToObjectDeserializer<AddressInfo> addressJsonToObjectDeserializer;
 	private DtoMapper<AddressDto, AddressInfo> addressDtoMapper;
-	
-	public CraftyClickPostalCodeService(){
+
+	public CraftyClickPostalCodeService() {
 		addressJsonToObjectDeserializer = new AddressJsonToObjectDeserializer();
-		addressDtoMapper = new AddressDtoMapper();		
-	
+		addressDtoMapper = new AddressDtoMapper();
 	}
-	
+
+	@Autowired
+	public void setPostalCodeRestResponseBuilder(PostalCodeRestRequestBuilder postalCodeRestResponseBuilder) {
+		this.postalCodeRestResponseBuilder = postalCodeRestResponseBuilder;
+	}
+
 	@Override
-	public AddressDto getAddress(String postalCode)throws Exception {
+	public AddressDto getAddress(String postalCode) throws Exception {
 		String response = postalCodeRestResponseBuilder.AddParam("postCode", postalCode).toResponse();
 		AddressInfo addressInfo = addressJsonToObjectDeserializer.Deserialize(response);
 		AddressDto addressDto = addressDtoMapper.map(addressInfo);

@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import validationApi.dto.AddressDto;
-import validationApi.service.PostalCodeService; 
+import validationApi.service.PostalCodeService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,39 +32,32 @@ public class PostalCodeControllerTest {
 	@Mock
 	PostalCodeService postalCodeService;
 
-    @InjectMocks
-    PostalCodeController postalCodeController;
-    
-	@Autowired
-    private MockMvc mockMvc;
-	
-	private String street = "Mount View Rd";
-	
-	@Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(postalCodeController).build();
+	@InjectMocks
+	PostalCodeController postalCodeController;
 
-    }
-	
+	@Autowired
+	private MockMvc mockMvc;
+
+	private String street = "Mount View Rd";
+
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+		mockMvc = MockMvcBuilders.standaloneSetup(postalCodeController).build();
+	}
+
 	@Test
-    public void testGetPostalCode() throws Exception {
-		
+	public void testGetPostalCode() throws Exception {
 		when(postalCodeService.getAddress("n44sj")).thenReturn(new AddressDto(street));
-		
-		mockMvc.perform(MockMvcRequestBuilders.get("/address/n44sj")
-        		.accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("address", is(street)));
-    }
-	
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/address/n44sj").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(jsonPath("address", is(street)));
+	}
+
 	@Test
-    public void testGetPostalCodeWhenNoPostalCodeIsSupplied() throws Exception {
-		
-		mockMvc.perform(MockMvcRequestBuilders.get("/address")
-        		.accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-                //.andExpect(jsonPath("address", is(street)));
-    }
+	public void testGetPostalCodeWhenNoPostalCodeIsSupplied() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/address").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
+	}
 }

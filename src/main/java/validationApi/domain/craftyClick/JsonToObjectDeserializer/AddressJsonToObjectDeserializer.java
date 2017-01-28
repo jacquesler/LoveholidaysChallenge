@@ -13,15 +13,17 @@ import validationApi.validation.Validate;
 public class AddressJsonToObjectDeserializer implements JsonToObjectDeserializer<AddressInfo> {
 
 	private ObjectMapper mapper;
-	
-	public AddressJsonToObjectDeserializer(){
+
+	public AddressJsonToObjectDeserializer() {
 		mapper = new ObjectMapper();
 	}
+
 	@Override
 	public AddressInfo Deserialize(String json) throws JsonParseException, JsonMappingException, IOException {
-		Validate.whenNullOrLengthZero(json).throwRuntimeException("Input json was null or empty for Address deserialization");
-		
-		AddressInfo address =  mapper.readValue(json, AddressInfo.class);
+		Validate.whenNullOrLengthZero(json)
+				.throwRuntimeException("Input json was null or empty for Address deserialization");
+
+		AddressInfo address = mapper.readValue(json, AddressInfo.class);
 		return address;
 	}
 

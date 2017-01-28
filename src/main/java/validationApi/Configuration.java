@@ -12,17 +12,17 @@ import validationApi.service.PostalCodeService;
 public class Configuration {
 
 	@Bean
-	public RestTemplate getRestTemplate(){
+	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
 	}
-	
+
 	@Bean
-	public PostalCodeService getPostalCodeService(){
+	public PostalCodeService getPostalCodeService() {
 		return new CraftyClickPostalCodeService();
 	}
-	
+
 	@Bean
-	public PostalCodeRestRequestBuilder getPostalCodeRestResponseBuilder(){
+	public PostalCodeRestRequestBuilder getPostalCodeRestResponseBuilder() {
 		final String uri = "http://pcls1.craftyclicks.co.uk/json/basicaddress?key={key}&postcode={postCode}&response=data_formatted";
 		final String key = "c09aa-0a082-a39bf-01f03";
 		PostalCodeRestRequestBuilder builder = new CraftyClickPostalCodeRestRequestBuilder(uri);
